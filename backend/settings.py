@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import json
 from pathlib import Path
 from decouple import config
 
@@ -139,7 +140,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
-    'SERVERS': [config("SERVERS", default={'url': 'http://127.0.0.1:8000/', 'description': 'Local'})]
+    'SERVERS': [json.loads(config("SERVERS", default="{'url': 'http://127.0.0.1:8000/', 'description': 'Local'}"))]
 }
 
 STATIC_ROOT="static/"
