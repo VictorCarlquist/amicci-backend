@@ -32,6 +32,12 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+    def list(self, request, *args, **kwargs):
+        list_obj = super().list(request, *args, **kwargs)
+        if not list_obj.data:
+            return Response(data="Não há category disponível", status=status.HTTP_404_NOT_FOUND)
+        return list_obj
+
 
 class RetailerViewSet(viewsets.ModelViewSet):
     queryset = Retailer.objects.all()
