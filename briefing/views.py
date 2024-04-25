@@ -37,3 +37,9 @@ class RetailerViewSet(viewsets.ModelViewSet):
     queryset = Retailer.objects.all()
     serializer_class = RetailerSerializer
 
+    def list(self, request, *args, **kwargs):
+        list_obj = super().list(request, *args, **kwargs)
+        if not list_obj.data:
+            return Response(data="Não há retailer disponível", status=status.HTTP_404_NOT_FOUND)
+        return list_obj
+

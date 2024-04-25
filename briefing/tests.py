@@ -173,3 +173,85 @@ class VendorTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("name"), self.vendor_data_update.get("name"))
+
+
+class RetailersTests(APITestCase):
+
+    def setUp(self) -> None:
+        self.factory = APIRequestFactory()
+        self.base_url = "api/demo"
+        return super().setUp()
+
+    def test_retailer_empty_list(self):
+        request = self.factory.get(self.base_url + '/retailers/')
+        response = RetailerViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data, "Não há retailer disponível")
+
+
+class RetailerTests(APITestCase):
+
+    def setUp(self) -> None:
+        self.factory = APIRequestFactory()
+        self.base_url = "api/demo"
+
+        self.retailer_data_get = {
+            'name': 'Test retailer',
+        }
+
+        self.retailer_data_update = {
+            'name': 'Test retailer',
+        }
+
+        _retailer_data_default = {
+            'name': 'Test retailer',
+        }
+
+        self.retailer = Retailer.objects.create(
+            **_retailer_data_default
+        )
+
+        _vendor_data_default = {
+            'name': 'Test vendor',
+            'retailer': self.retailer
+        }
+
+        self.vendor = Vendor.objects.create(
+            **_vendor_data_default
+        )
+
+        return super().setUp()
+
+    def test_retailer_list(self):
+        request = self.factory.get(self.base_url + '/retailers/')
+        response = RetailerViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data[0].get('vendors')), 1)
+
+    def test_retailer_retrive(self):
+        pk = self.retailer.pk
+        request = self.factory.get(self.base_url + '/retailer/')
+        response = RetailerViewSet.as_view({'get': 'retrieve'})(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("name"), self.retailer_data_get.get("name"))
+        self.assertEqual(len(response.data.get('vendors')), 1)
+
+
+    def test_retailer_update(self):
+        pk = self.retailer.pk
+        data_to_update = self.retailer_data_update
+        data_to_update['name'] = "New value"
+        request = self.factory.put(self.base_url + '/retailer/', data=data_to_update)
+        response = RetailerViewSet.as_view({'put': 'update'})(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("name"), "New value")
+
+    def test_retailer_create(self):
+        request = self.factory.post(self.base_url + '/retailer/', data=self.retailer_data_update)
+        response = RetailerViewSet.as_view({'post': 'create'})(request)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data.get("name"), self.retailer_data_update.get("name"))

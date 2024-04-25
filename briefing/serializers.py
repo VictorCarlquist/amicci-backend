@@ -40,7 +40,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class RetailerSerializer(serializers.ModelSerializer):
+    vendors = serializers.SerializerMethodField()
+
     class Meta:
         model = Retailer
         fields = '__all__'
 
+    def get_vendors(self, value):
+        vendors = value.vendors
+        return VendorSerializer(vendors, many=True).data
