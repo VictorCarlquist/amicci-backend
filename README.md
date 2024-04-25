@@ -1,3 +1,43 @@
+## Amicci Teste
+
+Olá,
+
+Decidi realizar o desenvolvimento utilizando as classes do DRF, pois facilitam a leitura e fica mais fácil a avaliação.
+
+Foram adicionados duas Actions no Github, a primeira rodas os testes, e se tudo estiver certo, roda a segunda actions que faz o build e envia para o Artifact Registry no GCP.
+
+Fiz o Deploy em um cluster kubernetes.
+
+Você pode acessar o site neste endereço:
+
+> http://35.238.132.252:8000/api/demo/schema/docs/
+
+
+Para executar o servidor localmente é necessário clonar o código:
+
+> git clone https://github.com/VictorCarlquist/amicci-backend
+
+Realizar o build:
+
+> docker compose build
+
+E executar o container:
+
+> docker run -p 8000:8000 us-central1-docker.pkg.dev/alo-journey/alo-journey/backend-amicci
+
+Para acessar a documentação da API, acesse:
+
+> http://127.0.0.1:8000/api/demo/schema/docs/
+
+Além disso, é possível realizer as requisições diretamente no browser
+
+
+## Teste Unitários
+
+O código está com 96% de cobertura por testes. Os testes verificam a aplicação de ponta-a-ponta (end-to-end)
+
+
+
 |Name |Stmts | Miss |Cover|
 |-------------------------------------------------------------------------|----|-------|------|
 |backend/__init__.py                                                      |  0 |     0 |  100%|
