@@ -3,7 +3,7 @@ from django.db import models
 
 class Vendor(models.Model):
     name = models.CharField(max_length=100)
-    retailer = models.ForeignKey('Retailer', related_name='vendors', on_delete=models.CASCADE)
+    retailer = models.ForeignKey('Retailer', null=True, related_name='vendors', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

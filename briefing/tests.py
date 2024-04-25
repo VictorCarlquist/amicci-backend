@@ -101,6 +101,75 @@ class BriefingTests(APITestCase):
         request = self.factory.post(self.base_url + '/briefing/', data=self.briefing_data_update)
         response = BriefingViewSet.as_view({'post': 'create'})(request)
 
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("name"), self.briefing_data_update.get("name"))
+
+
+class VendorsTests(APITestCase):
+
+    def setUp(self) -> None:
+        self.factory = APIRequestFactory()
+        self.base_url = "api/demo"
+        return super().setUp()
+
+    def test_vendor_empty_list(self):
+        request = self.factory.get(self.base_url + '/vendors/')
+        response = VendorViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data, "Não há vendor disponível")
+
+
+class VendorTests(APITestCase):
+
+    def setUp(self) -> None:
+        self.factory = APIRequestFactory()
+        self.base_url = "api/demo"
+
+        self.vendor_data_get = {
+            'name': 'Test vendor',
+        }
+
+        self.vendor_data_update = {
+            'name': 'Test vendor',
+        }
+
+        _vendor_data_default = {
+            'name': 'Test vendor',
+        }
+
+        self.vendor = Vendor.objects.create(
+            **_vendor_data_default
+        )
+
+        return super().setUp()
+
+    def test_vendor_list(self):
+        request = self.factory.get(self.base_url + '/vendors/')
+        response = VendorViewSet.as_view({'get': 'list'})(request)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+    def test_vendor_retrive(self):
+        pk = self.vendor.pk
+        request = self.factory.get(self.base_url + '/vendor/')
+        response = VendorViewSet.as_view({'get': 'retrieve'})(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("name"), self.vendor_data_get.get("name"))
+
+    def test_vendor_update(self):
+        pk = self.vendor.pk
+        data_to_update = self.vendor_data_update
+        data_to_update['name'] = "New value"
+        request = self.factory.put(self.base_url + '/vendor/', data=data_to_update)
+        response = VendorViewSet.as_view({'put': 'update'})(request, pk=pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("name"), "New value")
+
+    def test_vendor_create(self):
+        request = self.factory.post(self.base_url + '/vendor/', data=self.vendor_data_update)
+        response = VendorViewSet.as_view({'post': 'create'})(request)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data.get("name"), self.vendor_data_update.get("name"))
