@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-amicci
+  namespace: default
+  labels:
+    app: backend-amicci
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-amicci
+  template:
+    metadata:
+      labels:
+        app: backend-amicci
+    spec:
+      containers:
+        - name: backend-amicci
+          image: us-central1-docker.pkg.dev/alo-journey/alo-journey/backend-amicci
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
