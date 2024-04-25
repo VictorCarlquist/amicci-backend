@@ -11,6 +11,6 @@ EXPOSE 8000
 
 RUN pip install -r requirements.txt
 
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 CMD ["gunicorn", "-c", "./backend/gunicorn.py", "backend.wsgi"]

@@ -141,3 +141,5 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
     'SERVERS': [config("SERVERS", default={'url': 'http://127.0.0.1:8000/', 'description': 'Local'})]
 }
+
+STATIC_ROOT="static/"
