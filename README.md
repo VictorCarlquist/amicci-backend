@@ -31,6 +31,54 @@ Para acessar a documentação da API, acesse:
 
 Além disso, é possível realizer as requisições diretamente no browser
 
+#### Teste a API:
+
+Adicione um novo Retailer:
+
+> POST /api/demo/retailer/
+
+```json
+{
+  "name": "Retailer Teste"
+}
+```
+
+Adicione um novo Vendor:
+
+> POST /api/demo/vendor/
+
+```json
+{
+  "name": "Vendor teste",
+  "retailer": 1
+}
+```
+
+Adicione uma nova categoria:
+
+> POST /api/demo/category/:
+
+```json
+{
+  "name": "Auto peças",
+  "description": "Peças automotivas diversas"
+}
+```
+
+Adicione um novo Briefing:
+
+> POST /api/demo/briefing/
+
+```json
+{
+  "retailer": 1,
+  "category": 1,
+  "name": "Briefing de teste",
+  "responsible": "Victor",
+  "release_date": "2024-04-25",
+  "availabe": 2
+}
+```
 
 ## Teste Unitários
 
