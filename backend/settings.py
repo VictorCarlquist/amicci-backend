@@ -139,5 +139,5 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
-    'SERVERS': [config("SERVERS", default={'url': 'http://localhost:8000/', 'description': 'Local '})]
+    'SERVERS': [config("SERVERS", default={'url': 'http://127.0.0.1:8000/', 'description': 'Local'})]
 }
