@@ -140,7 +140,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
-    'SERVERS': [json.loads(config("SERVERS", default="{'url': 'http://127.0.0.1:8000/', 'description': 'Local'}"))]
+    'SERVERS': [json.loads(config("SERVERS", default='{"url": "http://127.0.0.1:8000/", "description": "Local"}'))]
 }
 
 STATIC_ROOT="static/"
