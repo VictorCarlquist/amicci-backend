@@ -10,6 +10,8 @@ Fiz o Deploy em um cluster Kubernetes.
 
 Você pode acessar o site neste endereço:
 
+Verifique se a URL inicia com HTTP e não HTTPS.
+
 > http://34.66.95.219:8000/api/demo/schema/docs/
 
 
