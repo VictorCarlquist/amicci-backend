@@ -6,11 +6,11 @@ Decidi realizar o desenvolvimento utilizando as classes do DRF, pois facilitam a
 
 Foram adicionados duas Actions no Github, a primeira rodas os testes, e se tudo estiver certo, roda a segunda actions que faz o build e envia para o Artifact Registry no GCP.
 
-Fiz o Deploy em no Cloud Run do Google.
+Fiz o Deploy em um cluster Kubernetes.
 
 Você pode acessar o site neste endereço:
 
-> https://backend-amicci-fczma34sqq-uc.a.run.app/api/demo/schema/docs/
+> http://34.66.95.219:8000/api/demo/schema/docs/
 
 
 Para executar o servidor localmente é necessário clonar o código:
