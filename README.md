@@ -12,7 +12,7 @@ Você pode acessar o site neste endereço:
 
 Verifique se a URL inicia com HTTP e não HTTPS.
 
-> http://34.66.95.219:8000/api/demo/schema/docs/
+> http://34.136.190.175:8000/api/demo/schema/docs/
 
 
 Para executar o servidor localmente é necessário clonar o código:
